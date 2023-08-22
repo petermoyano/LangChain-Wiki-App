@@ -1,1 +1,1 @@
-api_key=
+apikey='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'
