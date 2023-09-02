@@ -1,0 +1,35 @@
+Vector Databases: What, Why, and How!
+Parthchudasama
+Cactus Tech Blog
+Parthchudasama
+
+Large Language Models (LLMs) are everywhere these days; for the past couple of weeks, most of the trending repositories on Github were related to LLMs. It does not surprise me; we have just started to explore the possibilities of what these models are capable of, and I am on board with this hype train!
+
+This began with OpenAI releasing ChatGPT to the public for free. It changed the conversational AI landscape forever. While I’m no expert on the internals of these models (every research paper I read it feels like barely scratching the surface) I am curious to try and see what we can build with these models.
+
+In recent times, I explored Vector databases and I was intrigued by what it can do. While relational databases like Postgres, MySQL, NoSQL DynamoDB, and MongoDB have been around for a substantial amount of time, vector DBs were not typically stereotyped (or I was living under a rock). When I first started reading about it, I wasn’t really sure what kind of use case it would satisfy, all I knew was it could save numbers with certain dimensions, but that’s about it.
+
+Converting text to numbers is a well-established technique, for classic machine learning algorithms, techniques such as categorical encoding, one-hot encoding, and label encoding have been around the corner for years. However, with the rise of deep learning and natural language processing (NLP), more advanced techniques for converting text to numbers have emerged. The problem with techniques like categorical encoding, one-hot encoding, and label encoding is that they have not been designed to capture the context of the text. These techniques are mainly used to encode categorical variables in a way that can be understood by certain machine learning algorithms. While they work well for structured data such as numerical or categorical data, they are not suitable for textual data on tasks that require context.
+
+Enter Word embeddings, it is capable of capturing syntactic and semantic similarity among words in a document.
+
+
+Fig(a): Simple representation of how word embeddings might represent words in 3-dimensional space.
+If you take a look at this image above, the words that are similar would be closer to each other in an n-dimensional space. Here Monkey and Lion are animals and Lime and Peach are fruits. Explaining word embeddings in depth is a blog for another day.
+
+In short, word embeddings enable us to identify words that are closely related to each other.
+
+Now that we know there is a technique out there that is capable of doing this, what can we build from this?
+
+Let’s talk about the What and Why…
+From fig(a), we can represent each word in the form of coordinates (x, y, z).
+
+
+Euclidean distance
+Using the above-stated formula, we can calculate the distance between two points given the coordinates of these points. As we can observe, the distance between Monkey and Lion is much smaller than the distance between Monkey and Lime. If we use this same algorithm, get embeddings for another word, and calculate the distance between different words it may lie closer to a particular word(s) this can be used to determine which category the given word might fall in. This concept might sound very familiar, it’s kNN! (k nearest neighbors).
+
+For figure (a), calculating the distance between all four points and another point is a cakewalk for modern computers. But we generate data on a massive scale these days, for instance — assume that there would be a billion data points, and we’d like to calculate the distance of a new data point with all other data points. It might not break your computer but as the scale keeps growing the time and resource requirements keeps increasing to a point where it’s not possible to keep everything in memory and use traditional database/technique for such cases. While a 3-dimensional vector is easy to work with, embeddings from transformer models provide vectors of much higher dimensionality. Storing this data and extracting relevant information from this data is very difficult using only traditional databases.
+
+This is where Vector Database comes to the rescue, for structured data Relational databases are the best, for unstructured data we have NoSql databases but for some niche use-cases that can solve the problem we discussed above, we need Vector databases (Can you think of some other use-cases for this? Share your thoughts below!). Traditional databases rely on an Index which enables us to find the item we are looking for without scanning the entire database. Vector DB does something similar, this enables us to search and compare vectors along with regular CRUD operations. I’ll be walking through the different indexing techniques and will also be sharing a practical implementation of an end-to-end prototype using an open-source vector database.
+
+I hope this article gave you just enough information to understand the basics of vector databases, how they can be used, and their advantages over traditional relational databases. If this blog intrigued you or got your brain cells running, feel free to drop a comment!
